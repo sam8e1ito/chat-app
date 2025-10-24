@@ -11,9 +11,9 @@ loginForm.addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value;
   
   try {
-    errorMessage.textContent = ""; // Clear any previous errors
+    errorMessage.textContent = ""; // clear any previous errors
     await signInWithEmailAndPassword(auth, email, password);
-    // Successful login will trigger onAuthStateChanged
+    // successful login will trigger onAuthStateChanged
   } catch (error) {
     console.error("Login error:", error);
     errorMessage.textContent = "Invalid email or password";

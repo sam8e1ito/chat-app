@@ -50,7 +50,7 @@ onAuthStateChanged(auth, (user) => {
       if (data) {
         let currentDay = null;
 
-        // Keep IDs for deletion and sort chronologically
+        // keep IDs for deletion and sort chronologically
         const messages = Object.entries(data)
           .map(([id, msg]) => ({ id, ...msg }))
           .sort((a, b) => getNumericTime(a) - getNumericTime(b));
@@ -69,10 +69,10 @@ onAuthStateChanged(auth, (user) => {
           const div = document.createElement("div");
           div.classList.add("message");
           
-          // Check if message is deleted
+          // check if the message is already deleted
           const isDeleted = msg.deleted === true;
           
-          // Align to the right if message belongs to the current user
+          // align to the right side of the screen if message belongs to the user
           if (msg.uid && msg.uid === auth.currentUser.uid) {
             div.classList.add("own");
           }
@@ -83,7 +83,7 @@ onAuthStateChanged(auth, (user) => {
               ? timestamp.toLocaleString(undefined, options)
               : timestamp.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 
-          // Build DOM safely (no innerHTML for user content)
+          // build DOM safely (no innerHTML for user content)
           const userEl = document.createElement("div");
           userEl.className = "username";
           userEl.textContent = `${msg.user || "Unknown"}:`;
@@ -91,7 +91,7 @@ onAuthStateChanged(auth, (user) => {
           const textEl = document.createElement("div");
           textEl.className = "text";
           
-          // Show deleted message or actual message
+          // show deleted message or actual message
           if (isDeleted) {
             textEl.textContent = `deleted the message`;
             textEl.classList.add("deleted-text");
@@ -108,14 +108,14 @@ onAuthStateChanged(auth, (user) => {
           div.appendChild(textEl);
           div.appendChild(tsEl);
 
-          // Only show delete button for owner and if message is not already deleted
+          // only show delete button for owner and if message is not already deleted
           if (msg.uid && msg.uid === auth.currentUser.uid && !isDeleted) {
             const btn = document.createElement("button");
             btn.classList.add("delete-btn");
             btn.textContent = "Delete";
             btn.addEventListener("click", async () => {
               try {
-                // Update message to mark as deleted instead of removing it
+                // update message to mark as deleted instead of removing it entirely
                 await update(child(messagesRef, msg.id), {
                   deleted: true
                 });
@@ -146,10 +146,10 @@ form.addEventListener("submit", (e) => {
   const user = auth.currentUser;
   if (!user) return;
 
-  // Get username from email by taking everything before the @
+  // get username from email by taking everything before the @ so it looks nicer
   const username = (user.email || "").split("@")[0] || "user";
 
-  // Include uid to enforce ownership and rule checks
+  // include uid to enforce ownership and rule checks
   const message = {
     text: val,
     user: username,
