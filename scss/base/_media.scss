@@ -1,0 +1,34 @@
+@media (max-width: 450px) {
+    #loginForm input {
+        width: 200px;
+    }
+    #messageForm{
+        button{
+            width: 130px;
+        }
+    }
+
+    #logoutBtn {
+        width: 100px;
+    }    
+}
+
+@media (min-width:451px) and (max-width: 768px) {
+    #messageForm{
+        button{
+            width: 200px;
+        }
+    }
+
+    #logoutBtn {
+        width: 100px;
+    }   
+}
+
+@media (min-width:769px) and (max-width: 1024px) {
+    
+}
+
+@media (min-width: 1025px) {
+    
+}
